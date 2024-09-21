@@ -1,32 +1,57 @@
 "use client"
-
 import React from 'react'
 import Link from 'next/link'
-import NextLogo from '../../../public/next.svg'
+import NextLogo from '../../../public/custom-logo.png'
 import Image from 'next/image'
 import { signOut } from 'next-auth/react'
 
 function Navbar({ session }) {
   return (
-    <nav className='flex justify-between items-center shadow-md p-5'>
-        <div>
+    <nav className='bg-white shadow-md'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div className='flex justify-between h-16'>
+          <div className='flex-shrink-0 flex items-center'>
             <Link href="/">
-                <Image src={NextLogo} width={100} height={100} alt='nextjs logo' /> 
+              <Image src={NextLogo} width={150} height={150} alt='FatsFood-logo' className="brightness-0" />
             </Link>
-        </div>
-        <ul className='flex space-x-4'>
+          </div>
+          <div className='flex items-center justify-center flex-1'>
+            <div className='hidden sm:ml-6 sm:flex sm:space-x-8'>
+              {['Discover', 'Top Picks', 'Quick Eats', 'Menu'].map((item) => (
+                <Link
+                  key={item}
+                  
+                  href={`/${item.toLowerCase()}`}
+                  className='text-gray-600 hover:text-black hover:border-b-2 hover:border-black px-3 py-2 text-sm font-medium transition-all duration-300 ease-in-out'
+                >
+                  {item}
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className='flex items-center'>
             {!session ? (
-                <>
-                    <li><Link href="/login">Login</Link></li>
-                    <li><Link href="/register">Register</Link></li>
-                </>
+              <div className='flex space-x-4'>
+                <Link href="/login" className='text-gray-600 hover:text-black hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-in-out'>
+                  Login
+                </Link>
+                <Link href="/register" className='bg-black text-white hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-in-out'>
+                  Register
+                </Link>
+              </div>
             ) : (
-                <>
-                    <li><Link href="/welcome" className='bg-gray-500 text-white border py-2 px-3 rounded-md text-lg my-2'>Profile</Link></li>
-                    <li><a onClick={() => signOut()} className='bg-red-500 text-white border py-2 px-3 rounded-md text-lg my-2'>Logout</a></li>
-                </>
+              <div className='flex space-x-4'>
+                <Link href="/welcome" className='bg-gray-100 text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-in-out'>
+                  Profile
+                </Link>
+                <button onClick={() => signOut()} className='bg-gray-800 text-white hover:bg-black px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-in-out'>
+                  Logout
+                </button>
+              </div>
             )}
-        </ul>
+          </div>
+        </div>
+      </div>
     </nav>
   )
 }

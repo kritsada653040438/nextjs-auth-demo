@@ -1,5 +1,5 @@
 "use client"
-
+import useSWR from 'swr'
 import React, { useState } from 'react'
 import Container from "../components/Container";
 import Navbar from "../components/Navbar";
